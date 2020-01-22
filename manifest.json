@@ -8,7 +8,7 @@
         "matches": [
           "<all_urls>"
         ],
-        "js": ["script.js"]
+        "js": ["script.js", "node_modules/jquery/dist/jquery.min.js"]
       }
     ],
     "icons": {

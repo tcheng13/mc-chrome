@@ -1,0 +1,22 @@
+{
+  "name": "chrome",
+  "version": "1.0.0",
+  "description": "mc chrome extension email",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tcheng13/mc-chrome.git"
+  },
+  "author": "Tim Cheng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tcheng13/mc-chrome/issues"
+  },
+  "homepage": "https://github.com/tcheng13/mc-chrome#readme",
+  "dependencies": {
+    "jquery": "^3.4.1"
+  }
+}
