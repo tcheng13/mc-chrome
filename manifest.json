@@ -6,9 +6,9 @@
     "content_scripts": [
       {
         "matches": [
-          "<all_urls>"
+          "https://mailchimp.com/*"
         ],
-        "js": ["script.js", "node_modules/jquery/dist/jquery.min.js"]
+        "js": ["node_modules/jquery/dist/jquery.min.js", "script.js"]
       }
     ],
     "icons": {
