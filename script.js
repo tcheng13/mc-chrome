@@ -8,15 +8,6 @@ $(document).ready(function() {
       e.preventDefault();
   
       var validForm = true;
-      var inputArray = $(this).find("input.required");
-  
-      inputArray.each(function(item) {
-        if ($(this).val() == "") {
-          validForm = false;
-          $(".mc_embed_signup .error-message").show();
-          $('.mc_embed_signup input.required').addClass('error');
-        }
-      });
 
       if (validForm == true) {
 
@@ -35,10 +26,11 @@ $(document).ready(function() {
           },
           success: function(data) {
             d = JSON.parse(data.slice(2, -1))
-            if (d.result != 'success') {
-                alert(d.msg);
+            if (data.result != 'success') {
+                console.log(d.msg)
                 $("#mc-embedded-subscribe-form").trigger("reset");
             } else {
+                console.log(d.msg)
                 $(formContainer).hide();
                 $(".success-message").show();
                 $("svg").addClass("active");
