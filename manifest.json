@@ -12,6 +12,10 @@
         "js": ["node_modules/jquery/dist/jquery.min.js", "script.js"]
       }
     ],
+    "background": { "scripts": ["hot-reload.js"] },
+    "web_accessible_resources": [
+      "pictures/*.png"
+    ],
     "icons": {
       "16": "images/get_started16.png",
       "32": "images/get_started32.png",
@@ -20,4 +24,6 @@
     },
     "manifest_version": 2
   }
+  
+  
   
