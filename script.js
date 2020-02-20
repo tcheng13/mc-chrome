@@ -88,7 +88,7 @@ $(document).ready(function() {
   <div class="layout">
   <figure class="subscription_container_image">
 
-                    <img src="${pencilImage}" alt="Signup Pencil" style=" !important height= 360px width = 362px align = "middle";">
+                    <img src="${pencilImage}" alt="Signup Pencil" style=" height= 360px width = 362px align = "middle";">
                 </figure>
                 <h2 class="h2 margin">
                     Want What's In Store in your inbox? Sign up below.
