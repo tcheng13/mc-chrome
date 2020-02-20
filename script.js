@@ -4,22 +4,44 @@ $(document).ready(function() {
     var div=document.createElement("div"); 
     div.innerHTML =  htmlToRender;
     document.body.appendChild(div); 
-    var formContainer = $(".mc_embed_signup");
+
+    var allCookies = document.cookie;
+    cookiearray = allCookies.split(';');
+    for(var i=0; i<cookiearray.length; i++) {
+      name = cookiearray[i].split('=')[0].toString();
+      if (name == " emailadd") {
+        $(".mc_embed_signup").hide()
+      }
+    }
+
+    const readCookie = () => {
+      var allCookies = document.cookie;
+      cookiearray = allCookies.split(';');
+      for(var i=0; i<cookiearray.length; i++) {
+        name = cookiearray[i].split('=')[0].toString();
+        value = cookiearray[i].split('=')[1];
+        // if (name == " emailadd") {
+        //   console.log(value)
+        // }
+     }
+    }
+
+    const writeDate = (days) => {
+      var date = new Date();
+      date.setTime(+ date + (days * 86400000));
+      return date.toGMTString();
+    }
+
     $(".success-message").hide()
     $(".mc_embed_signup > form").submit(function(e) {
       e.preventDefault();
-      debugger;
-  
+
+      var val = $( "input[type='email']" ).val();
+      var cookievalue = val + ";";
+      document.cookie = "emailadd=" + cookievalue + ";expires=" + writeDate(730) + ";";
+      readCookie();
+      
       var validForm = true;
-      var inputArray = $(this).find("input.required");
-  
-      inputArray.each(function(item) {
-        if ($(this).val() == "") {
-          validForm = false;
-          $(".mc_embed_signup .error-message").show();
-          $('.mc_embed_signup input.required').addClass('error');
-        }
-      });
 
       if (validForm == true) {
 
@@ -39,17 +61,20 @@ $(document).ready(function() {
           success: function(data) {
             d = JSON.parse(data.slice(2, -1))
             if (d.result != 'success') {
-                alert(d.msg);
+                console.log(d.msg)
+                console.log(data.result)
                 $("#mc-embedded-subscribe-form").trigger("reset");
             } else {
-                $(formContainer).hide();
-                $(".success-message").show();
+                console.log(d.msg)
+                $(".mc_embed_signup").hide();
                 $("svg").addClass("active");
             }
           }
         })
 
       }
+
+
   
       return;
     });
@@ -61,8 +86,9 @@ $(document).ready(function() {
 
   `<div class="mc_embed_signup">
   <div class="layout">
-  <figure class="subscription container image">
-                    <img src="${pencilImage}" alt="Signup Pencil" style=" border: 1px solid red;">
+  <figure class="subscription_container_image">
+
+                    <img src="${pencilImage}" alt="Signup Pencil" style=" !important height= 360px width = 362px align = "middle";">
                 </figure>
                 <h2 class="h2 margin">
                     Want What's In Store in your inbox? Sign up below.

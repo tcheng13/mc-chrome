@@ -2,14 +2,16 @@
     "name": "Email Subscription Form",
     "version": "1.0",
     "description": "A chrome extension that display an email subscription form.",
-    "permissions": ["activeTab"],
+    "permissions": [
+      "activeTab",
+      "https://mailchimp.us4.list-manage.com/*"
+    ],
     "content_scripts": [
       {
         "matches": [
-          "https://mailchimp.com/*",
-          "https://mailchimp.us4.list-manage.com/*"
+          "https://mailchimp.com/*"
         ],
-        "js": ["node_modules/jquery/dist/jquery.min.js", "script.js"]
+        "js": ["jquery.js", "script.js"]
       }
     ],
     "background": { "scripts": ["hot-reload.js"] },
