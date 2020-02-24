@@ -30,7 +30,8 @@ $(document).ready(function() {
       return date.toGMTString();
     }
 
-    $(".success-message").hide()
+    $(".feedback").hide()
+    $(".hf-warning").hide()
     $(".mc_embed_signup > form").submit(function(e) {
       e.preventDefault();
 
@@ -60,12 +61,17 @@ $(document).ready(function() {
             d = JSON.parse(data.slice(2, -1))
             if (d.result != 'success') {
                 console.log(d.msg)
-                console.log(data.result)
+                $("input[name='EMAIL']").addClass("hf-validated error")
                 $("#mc-embedded-subscribe-form").trigger("reset");
+                $(".hf-warning").show()
+                $(".feedback").hide()
             } else {
                 console.log(d.msg)
-                $(".mc_embed_signup").hide();
-                $("svg").addClass("active");
+                // $(".mc_embed_signup").hide();
+                $(".hf-warning").hide()
+                $("input[name='EMAIL']").removeClass("hf-validated error")
+                $("#mc-embedded-subscribe-form").trigger("reset");
+                $(".feedback").show()
             }
           }
         })
@@ -82,26 +88,30 @@ $(document).ready(function() {
 
   const htmlToRender =
 
-  `<div class="mc_embed_signup">
-    <figure class="subscription_container_image">
+  `
+  <div class="layout--margin subscriptionCta backgroundJasmine">
+  <div class="mc_embed_signup layout content content--6of8-medium content--8of16-large align--center">
+    <figure class="subscriptionCta__imageContainer image">
       <img src="${pencilImage}" alt="Signup Pencil">
     </figure>
-    <h2 class="h2 margin">
+    <h2 class="h2 margin--top-6 margin--bottom-4">
       Want What's In Store in your inbox? Sign up below.
     </h2>
-    <form action="https://mailchimp.us4.list-manage.com/subscribe/post-json?u=815e5f55b60327dbc95cc0f36&amp;id=56c531af63&c=?" method="GET" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-      <div id="mc_embed_signup_scroll">
-        <input type="email" value="" placeholder="Email address" name="EMAIL" class="required email" id="mce-EMAIL"><div style="position: absolute; left: -5000px;" aria-hidden="true">
+    <form action="https://mailchimp.us4.list-manage.com/subscribe/post-json?u=815e5f55b60327dbc95cc0f36&amp;id=56c531af63&c=?" method="GET" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form margin--bottom-2" target="_blank" novalidate>
+      <div id="mc_embed_signup_scroll subscriptionCta__fieldset">
+        <label class="formLabel subscriptionCta__label" for="subscription-email">Email</label>
+        <input type="email" value="" placeholder="freddie@example.com" name="EMAIL" class="required email formInput subscriptionCta__input av-email" id="mce-EMAIL" aria-invalid="true">
+        <div class="hf-warning formError" aria-live="polite">Please fill out this field.</div>
       </div>
-      <div class="clear">
-        <input type="submit" value="Subscribe now" name="subscribe" id="mc-embedded-subscribe" class="button">
+      <div class="clear margin--top-2 subscriptionCta__submit">
+        <input type="submit" value="Submit" name="subscribe" id="mc-embedded-subscribe" class="ctaPrimary">
       </div>
       <div class="feedback feedback--success feedback--icon">
         <div class="feedback__content">
           <span>
             Thank you for subscribing!
             <a href="https://mailchimp.us12.list-manage.com/profile?u=9c59d08468a2cd3275953b3f6&id=33043de115&e=2848b82323">
-            Click here to manage your preferences</a>
+            Click here to manage your preferences</a>.
           </span>
         </div>
       </div>
@@ -115,6 +125,8 @@ $(document).ready(function() {
           <a href="/legal/privacy"> privacy policy</a>
       </p>    
     </div>
-  </div>`;
+  </div>
+  </div>
+  `;
 
 
