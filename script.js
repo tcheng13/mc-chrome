@@ -1,4 +1,6 @@
+
 $(document).ready(function() {
+  
     var div=document.createElement("div"); 
     div.innerHTML = htmlToRender;
     document.body.appendChild(div); 
@@ -23,23 +25,14 @@ $(document).ready(function() {
         // }
      }
     }
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> bc5c24f27ddbb9c885149596539b5824cfdab397
     const writeDate = (days) => {
       var date = new Date();
       date.setTime(+ date + (days * 86400000));
       return date.toGMTString();
     }
 
-<<<<<<< HEAD
     $(".success-message").hide()
-=======
-    $(".feedback").hide()
-    $(".hf-warning").hide()
->>>>>>> bc5c24f27ddbb9c885149596539b5824cfdab397
     $(".mc_embed_signup > form").submit(function(e) {
       e.preventDefault();
 
@@ -47,11 +40,7 @@ $(document).ready(function() {
       var cookievalue = val + ";";
       document.cookie = "emailadd=" + cookievalue + ";expires=" + writeDate(730) + ";";
       readCookie();
-<<<<<<< HEAD
       
-=======
-  
->>>>>>> bc5c24f27ddbb9c885149596539b5824cfdab397
       var validForm = true;
 
       if (validForm == true) {
@@ -73,26 +62,12 @@ $(document).ready(function() {
             d = JSON.parse(data.slice(2, -1))
             if (d.result != 'success') {
                 console.log(d.msg)
-<<<<<<< HEAD
                 console.log(data.result)
-=======
-                $("input[name='EMAIL']").addClass("hf-validated error")
->>>>>>> bc5c24f27ddbb9c885149596539b5824cfdab397
                 $("#mc-embedded-subscribe-form").trigger("reset");
-                $(".hf-warning").show()
-                $(".feedback").hide()
             } else {
                 console.log(d.msg)
-<<<<<<< HEAD
                 $(".mc_embed_signup").hide();
                 $("svg").addClass("active");
-=======
-                $(".mc_embed_signup").hide()
-                $(".hf-warning").hide()
-                $("input[name='EMAIL']").removeClass("hf-validated error")
-                $("#mc-embedded-subscribe-form").hide();
-                $(".feedback").show()
->>>>>>> bc5c24f27ddbb9c885149596539b5824cfdab397
             }
           }
         })
@@ -109,57 +84,36 @@ $(document).ready(function() {
 
   const htmlToRender =
 
-<<<<<<< HEAD
-  `<div class="mc_embed_signup">
+  `<div class="layout--margin subscriptionCta backgroundJasmine">
+  <div class="layout">
+  <div class="content content--6of8-medium content--8of16-large align--center">
+  <div class="mc_embed_signup">
     <figure class="subscription_container_image">
       <img src="${pencilImage}" alt="Signup Pencil">
     </figure>
-    <h2 class="h2 margin">
+    <h2 class="h2 margin--top-6 margin--bottom-4">
       Want What's In Store in your inbox? Sign up below.
     </h2>
     <form action="https://mailchimp.us4.list-manage.com/subscribe/post-json?u=815e5f55b60327dbc95cc0f36&amp;id=56c531af63&c=?" method="GET" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
       <div id="mc_embed_signup_scroll">
         <input type="email" value="" placeholder="Email address" name="EMAIL" class="required email" id="mce-EMAIL"><div style="position: absolute; left: -5000px;" aria-hidden="true">
       </div>
-      <div class="clear">
-        <input type="submit" value="Subscribe now" name="subscribe" id="mc-embedded-subscribe" class="button">
-=======
-  `
-  <div class="layout--margin subscriptionCta backgroundJasmine">
-  <div class="margin--bottom-2">
-  <div>
-  <div class="mc_embed_signup layout content content--6of8-medium content--8of16-large align--center">
-    <figure class="subscriptionCta__imageContainer image">
-      <img src="${pencilImage}" alt="Signup Pencil">
-    </figure>
-    <h2 class="h2 margin--top-6 margin--bottom-4">
-      Want What's In Store in your inbox? Sign up below.
-    </h2>
-    <form action="https://mailchimp.us4.list-manage.com/subscribe/post-json?u=815e5f55b60327dbc95cc0f36&amp;id=56c531af63&c=?" method="GET" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form margin--bottom-2" target="_blank" novalidate>
-      <div id="mc_embed_signup_scroll subscriptionCta__fieldset">
-        <label class="formLabel subscriptionCta__label" for="subscription-email">Email</label>
-        <input type="email" value="" placeholder="freddie@example.com" name="EMAIL" class="required email formInput subscriptionCta__input av-email" id="mce-EMAIL" aria-invalid="true">
-        <div class="hf-warning formError" aria-live="polite">Please fill out this field.</div>
+      <div class="margin--top-2 subscriptionCta__submit">
+        <input type="submit" value="Subscribe now" name="subscribe" id="mc-embedded-subscribe" class="ctaPrimary">
       </div>
-      <div class="clear margin--top-2 subscriptionCta__submit">
-        <input type="submit" value="Submit" name="subscribe" id="mc-embedded-subscribe" class="ctaPrimary">
->>>>>>> bc5c24f27ddbb9c885149596539b5824cfdab397
-      </div>
+      <!--
       <div class="feedback feedback--success feedback--icon">
         <div class="feedback__content">
           <span>
             Thank you for subscribing!
             <a href="https://mailchimp.us12.list-manage.com/profile?u=9c59d08468a2cd3275953b3f6&id=33043de115&e=2848b82323">
-<<<<<<< HEAD
             Click here to manage your preferences</a>
-=======
-            Click here to manage your preferences</a>.
->>>>>>> bc5c24f27ddbb9c885149596539b5824cfdab397
           </span>
+          -->
         </div>
       </div>
     </form>
-    <div class="info">
+    <div class="margin--top-2  info">
       <p>
           Your information will be used to send you Mailchimp updates. 
           You can change your mind at any time by clicking the unsubscribe 
@@ -168,12 +122,9 @@ $(document).ready(function() {
           <a href="/legal/privacy"> privacy policy</a>
       </p>    
     </div>
-<<<<<<< HEAD
+  </div>
+  </div>
+  </div>
   </div>`;
 
 
-=======
-  </div>
-  </div>
-  `;
->>>>>>> bc5c24f27ddbb9c885149596539b5824cfdab397
