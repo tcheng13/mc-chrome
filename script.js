@@ -1,9 +1,14 @@
-
 $(document).ready(function() {
   
     var div=document.createElement("div"); 
     div.innerHTML = htmlToRender;
     document.body.appendChild(div); 
+
+    var style = document.createElement('link');
+    style.rel = 'stylesheet';
+    style.type = 'text/css';
+    style.href = chrome.extension.getURL('node_modules/easy-autocomplete/dist/easy-autocomplete.min.css');
+    (document.head||document.documentElement).appendChild(style);
 
     var allCookies = document.cookie;
     cookiearray = allCookies.split(';');
@@ -34,6 +39,7 @@ $(document).ready(function() {
 
     $(".feedback").hide()
     $(".hf-warning").hide()
+    $(".signing").hide()
     $(".mc_embed_signup > form").submit(function(e) {
       e.preventDefault();
 
@@ -41,6 +47,12 @@ $(document).ready(function() {
       var cookievalue = val + ";";
       document.cookie = "emailadd=" + cookievalue + ";expires=" + writeDate(730) + ";";
       readCookie();
+
+      var options = {
+        data: ["blue", "green", "pink", "red", "yellow"]
+      };
+      
+      $("#basics").easyAutocomplete(options);
       
       var validForm = true;
 
@@ -69,11 +81,11 @@ $(document).ready(function() {
                 $(".feedback").hide()
             } else {
                 console.log(d.msg)
-                // $(".mc_embed_signup").hide();
+                $(".signing").hide();
+                $(".searchOn").show();
                 $(".hf-warning").hide()
                 $("input[name='EMAIL']").removeClass("hf-validated error")
                 $("#mc-embedded-subscribe-form").trigger("reset");
-                $(".feedback").show()
             }
           }
         })
@@ -86,20 +98,20 @@ $(document).ready(function() {
     });
   });
 
-  const pencilImage = chrome.extension.getURL('./pictures/signup-pencil.png');
+  const pencilImage = chrome.extension.getURL('./images/signup-pencil.png');
 
   const htmlToRender =
 
   `
   <div class="layout--margin subscriptionCta backgroundJasmine">
-  <div class="mc_embed_signup layout content content--6of8-medium content--8of16-large align--center">
-    <figure class="subscriptionCta__imageContainer image">
+  <div class="mc_embed_signup layout content content--6of8-medium content--8of16-large">
+    <figure class="subscriptionCta__imageContainer image signing">
       <img src="${pencilImage}" alt="Signup Pencil">
     </figure>
-    <h2 class="h2 margin--top-6 margin--bottom-4">
+    <h2 class="h2 margin--top-6 margin--bottom-4 signing">
       Want What's In Store in your inbox? Sign up below.
     </h2>
-    <form action="https://mailchimp.us4.list-manage.com/subscribe/post-json?u=815e5f55b60327dbc95cc0f36&amp;id=56c531af63&c=?" method="GET" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form margin--bottom-2" target="_blank" novalidate>
+    <form action="https://mailchimp.us4.list-manage.com/subscribe/post-json?u=815e5f55b60327dbc95cc0f36&amp;id=56c531af63&c=?" method="GET" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form margin--bottom-2 signing" target="_blank" novalidate>
       <div id="mc_embed_signup_scroll subscriptionCta__fieldset">
         <label class="formLabel subscriptionCta__label" for="subscription-email">Email</label>
         <input type="email" value="" placeholder="freddie@example.com" name="EMAIL" class="required email formInput subscriptionCta__input av-email" id="mce-EMAIL" aria-invalid="true">
@@ -117,8 +129,58 @@ $(document).ready(function() {
           </span>
         </div>
       </div>
-    </form>
-    <div class="info">
+    </form >
+
+    <input id="basics" />
+    <form class="form searchBar searchBar--inverted searchOn" action="/search/api/" method="get" data-behavior="actionableSearchBar:form" role="search" novalidate="novalidate">
+
+    
+    <label class="searchBar__label formLabel screen-reader-only" id="actionable-search-bar-label" for="actionable-search-bar-input">
+        Search                </label>
+
+    <input class="searchBar__textInput formInput av-search" type="search" name="q" id="actionable-search-bar-input" placeholder="Search Mailchimp" autocomplete="off" data-behavior="actionableSearchBar:searchInput" aria-labelledby="actionable-search-bar-label">
+
+    <button type="submit" class="searchBar__submit formSubmit" aria-label="Search Mailchimp" data-behavior="search-bar:submit">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon--search" aria-label="Search" width="23" height="23" viewBox="0 0 23 23">
+<path fill="#241C15" d="M23 20.978l-6.595-6.531c1.149-1.511 1.838-3.382 1.838-5.415 0-4.98-4.092-9.032-9.121-9.032-5.03 0-9.121 4.052-9.121 9.032s4.092 9.032 9.121 9.032c1.936 0 3.73-.605 5.208-1.628l6.628 6.563 2.042-2.022zm-20.991-11.945c0-3.883 3.191-7.043 7.112-7.043s7.112 3.159 7.112 7.043-3.191 7.043-7.112 7.043-7.112-3.159-7.112-7.043z"></path>
+</svg>
+    </button>
+</form>
+
+<section class="margin--top-2 recommendedSearchQueries" data-behavior="actionableSearchBar:recommendedSearchQueries" data-module-id="recommendedSearchQueries" data-entry-id="1j81jwtvBeiiESJ0PlaGH7" data-context-text="Try searching for">
+
+    <h3 class="microHeading margin--bottom-2" style="font-size: 1rem; font-weight: 500; text-transform: uppercase; margin-top: 3rem;margin-bottom: .625rem; position: sticky; left: 0; display: block;">Try searching for</h3>
+    <ul class="flex" style= "">
+        <li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;">
+            <a href="#" data-behavior="actionableSearchBar:searchQuery" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
+                 welcome automation
+            </a>
+        </li>
+        <li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;">
+            <a href="#" data-behavior="actionableSearchBar:searchQuery" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
+                 import contacts            
+            </a>
+        </li>
+        <li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;">
+            <a href="#" data-behavior="actionableSearchBar:searchQuery" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
+                 facebook            
+            </a>
+        </li>
+        <li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;">
+            <a href="#" data-behavior="actionableSearchBar:searchQuery" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
+                 email templates            
+            </a>
+        </li>
+        <li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;">
+            <a href="#" data-behavior="actionableSearchBar:searchQuery" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
+                 contact support            
+            </a>
+        </li>    
+        </ul>
+
+</section>
+
+    <div class="info signing">
       <p>
           Your information will be used to send you Mailchimp updates. 
           You can change your mind at any time by clicking the unsubscribe 
@@ -128,7 +190,8 @@ $(document).ready(function() {
       </p>    
     </div>
   </div>
-  </div>`;
+  </div>
+  `;
 
 
 
