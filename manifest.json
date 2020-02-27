@@ -11,7 +11,7 @@
         "matches": [
           "https://mailchimp.com/*"
         ],
-        "js": ["jquery.js", "node_modules/easy-autocomplete/dist/jquery.easy-autocomplete.min.js", "script.js"], 
+        "js": ["node_modules/jquery/dist/jquery.min.js", "node_modules/easy-autocomplete/dist/jquery.easy-autocomplete.min.js", "script.js"], 
         "css": ["node_modules/easy-autocomplete/dist/easy-autocomplete.min.css"]
       }
     ],

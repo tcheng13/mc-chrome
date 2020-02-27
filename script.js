@@ -19,10 +19,11 @@ $(document).ready(function() {
       for(var i=0; i<cookiearray.length; i++) {
         name = cookiearray[i].split('=')[0].toString();
         value = cookiearray[i].split('=')[1];
-        // if (name == " emailadd") {
-        //   console.log(value)
-        // }
+        if (name == " emailadd" || name== " intent") {
+          console.log(value)
+        }
      }
+     print("hi")
     }
 
     var options = {
@@ -48,7 +49,10 @@ $(document).ready(function() {
     $(".feedback").hide()
     $(".hf-warning").hide()
     $(".signing").hide()
-    $(".mc_embed_signup > form").submit(function(e) {
+    // $(".searchOn").hide()
+
+    
+    $("#mc-embedded-subscribe-form").submit(function(e) {
       e.preventDefault();
 
       var val = $( "input[type='email']" ).val();
@@ -100,6 +104,17 @@ $(document).ready(function() {
     });
   });
 
+  $("#intent").submit(function(e) {
+    e.preventDefault();
+    console.log(35)
+    var val = $( "input[type='search']" ).val();
+    var cookievalue = val + ";";
+    document.cookie = "intent=" + cookievalue + ";expires=" + writeDate(730) + ";";
+    readCookie();
+
+  });
+
+
   const pencilImage = chrome.extension.getURL('resources/images/signup-pencil.png');
 
   const htmlToRender =
@@ -113,6 +128,7 @@ $(document).ready(function() {
     <h2 class="h2 margin--top-6 margin--bottom-4 signing">
       Want What's In Store in your inbox? Sign up below.
     </h2>
+
     <form action="https://mailchimp.us4.list-manage.com/subscribe/post-json?u=815e5f55b60327dbc95cc0f36&amp;id=56c531af63&c=?" method="GET" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate form margin--bottom-2 signing" target="_blank" novalidate>
       <div id="mc_embed_signup_scroll subscriptionCta__fieldset">
         <label class="formLabel subscriptionCta__label" for="subscription-email">Email</label>
@@ -133,19 +149,16 @@ $(document).ready(function() {
       </div>
     </form >
 
-    <form class="form searchBar searchBar--inverted searchOn" method="get" novalidate="novalidate">
-          <label class="searchBar__label formLabel screen-reader-only" id="actionable-search-bar-label">
-            Search                
-          </label> 
-          <input class="searchBar__textInput formInput av-search fill" type="search" name="q" placeholder="Search Mailchimp" autocomplete="off" data-behavior="actionableSearchBar:searchInput" aria-labelledby="actionable-search-bar-label" style="padding:1.25rem; border: none; box-shadow: none; padding-right: 3.9375reml; margin-bottom: 0px">
-          <button type="submit" class="searchBar__submit formSubmit" aria-label="Search Mailchimp" data-behavior="search-bar:submit">
-          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon--search" aria-label="Search" width="23" height="23" viewBox="0 0 23 23">
-            <path fill="#241C15" d="M23 20.978l-6.595-6.531c1.149-1.511 1.838-3.382 1.838-5.415 0-4.98-4.092-9.032-9.121-9.032-5.03 0-9.121 4.052-9.121 9.032s4.092 9.032 9.121 9.032c1.936 0 3.73-.605 5.208-1.628l6.628 6.563 2.042-2.022zm-20.991-11.945c0-3.883 3.191-7.043 7.112-7.043s7.112 3.159 7.112 7.043-3.191 7.043-7.112 7.043-7.112-3.159-7.112-7.043z"></path>
-          </svg>
+    <form target="_blank" class="form searchBar searchBar--inverted searchOn" id="intent">
+      <input class="searchBar__textInput formInput av-search fill" type="search" name="q" placeholder="Search Mailchimp" autocomplete="off" aria-labelledby="actionable-search-bar-label" style="padding:1.25rem; border: none; box-shadow: none; padding-right: 3.9375reml; margin-bottom: 0px; padding-right:3.9375rem">
+      <button type="submit" class="searchBar__submit formSubmit" aria-label="Search Mailchimp">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon--search" aria-label="Search" width="23" height="23" viewBox="0 0 23 23">
+          <path fill="#241C15" d="M23 20.978l-6.595-6.531c1.149-1.511 1.838-3.382 1.838-5.415 0-4.98-4.092-9.032-9.121-9.032-5.03 0-9.121 4.052-9.121 9.032s4.092 9.032 9.121 9.032c1.936 0 3.73-.605 5.208-1.628l6.628 6.563 2.042-2.022zm-20.991-11.945c0-3.883 3.191-7.043 7.112-7.043s7.112 3.159 7.112 7.043-3.191 7.043-7.112 7.043-7.112-3.159-7.112-7.043z"></path>
+        </svg>
       </button>
     </form>
 
-<section class="margin--top-2 recommendedSearchQueries" data-behavior="actionableSearchBar:recommendedSearchQueries" data-module-id="recommendedSearchQueries" data-entry-id="1j81jwtvBeiiESJ0PlaGH7" data-context-text="Try searching for" style="margin-top:3rem">
+    <section class="margin--top-2 recommendedSearchQueries searchOn" data-behavior="actionableSearchBar:recommendedSearchQueries" data-module-id="recommendedSearchQueries" data-entry-id="1j81jwtvBeiiESJ0PlaGH7" data-context-text="Try searching for" style="margin-top:3rem">
 
     <h3 class="microHeading margin--bottom-2" style="font-size: 1rem; font-weight: 500; text-transform: uppercase; margin-bottom: .625rem; position: sticky; left: 0; display: block;">Select or search intent</h3>
     <ul class="flex" style= "">

@@ -28,7 +28,6 @@
     {"intent": "Build website/page"},
     {"intent": "Find customers"},
     {"intent": "Understand customers"},
-    {"intent": "Import contact"},
     {"intent": "Tag contacts"},
     {"intent": "Segment audience"},
     {"intent": "Create targeted messaging"},
@@ -51,5 +50,10 @@
     {"intent": "Bootstrapped (Personal cash/savings)"},
     {"intent": "Friends and family (loans, gifts, investors)"},
     {"intent": "Traditional bank loan"},
-    {"intent": "Microloans"}
+    {"intent": "Microloans"},
+    {"intent": "Welcome automation"},
+    {"intent": "Import contacts"},
+    {"intent": "Facebook"},
+    {"intent": "Email templates"},
+    {"intent": "Contact support"}
 ]
