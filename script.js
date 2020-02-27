@@ -4,12 +4,6 @@ $(document).ready(function() {
     div.innerHTML = htmlToRender;
     document.body.appendChild(div); 
 
-    var style = document.createElement('link');
-    style.rel = 'stylesheet';
-    style.type = 'text/css';
-    style.href = chrome.extension.getURL('node_modules/easy-autocomplete/dist/easy-autocomplete.min.css');
-    (document.head||document.documentElement).appendChild(style);
-
     var allCookies = document.cookie;
     cookiearray = allCookies.split(';');
     for(var i=0; i<cookiearray.length; i++) {
@@ -31,6 +25,20 @@ $(document).ready(function() {
      }
     }
 
+    var options = {
+      url: chrome.extension.getURL('resources/json/intents.json'),
+
+      getValue: "intent",
+
+      list: {
+        match: {
+          enabled: true
+        }
+      }
+    };
+    
+    $(".fill").easyAutocomplete(options);
+
     const writeDate = (days) => {
       var date = new Date();
       date.setTime(+ date + (days * 86400000));
@@ -47,12 +55,6 @@ $(document).ready(function() {
       var cookievalue = val + ";";
       document.cookie = "emailadd=" + cookievalue + ";expires=" + writeDate(730) + ";";
       readCookie();
-
-      var options = {
-        data: ["blue", "green", "pink", "red", "yellow"]
-      };
-      
-      $("#basics").easyAutocomplete(options);
       
       var validForm = true;
 
@@ -98,7 +100,7 @@ $(document).ready(function() {
     });
   });
 
-  const pencilImage = chrome.extension.getURL('./images/signup-pencil.png');
+  const pencilImage = chrome.extension.getURL('resources/images/signup-pencil.png');
 
   const htmlToRender =
 
@@ -131,43 +133,39 @@ $(document).ready(function() {
       </div>
     </form >
 
-    <input id="basics" />
-    <form class="form searchBar searchBar--inverted searchOn" action="/search/api/" method="get" data-behavior="actionableSearchBar:form" role="search" novalidate="novalidate">
+    <form class="form searchBar searchBar--inverted searchOn" method="get" novalidate="novalidate">
+          <label class="searchBar__label formLabel screen-reader-only" id="actionable-search-bar-label">
+            Search                
+          </label> 
+          <input class="searchBar__textInput formInput av-search fill" type="search" name="q" placeholder="Search Mailchimp" autocomplete="off" data-behavior="actionableSearchBar:searchInput" aria-labelledby="actionable-search-bar-label" style="padding:1.25rem; border: none; box-shadow: none; padding-right: 3.9375reml; margin-bottom: 0px">
+          <button type="submit" class="searchBar__submit formSubmit" aria-label="Search Mailchimp" data-behavior="search-bar:submit">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon--search" aria-label="Search" width="23" height="23" viewBox="0 0 23 23">
+            <path fill="#241C15" d="M23 20.978l-6.595-6.531c1.149-1.511 1.838-3.382 1.838-5.415 0-4.98-4.092-9.032-9.121-9.032-5.03 0-9.121 4.052-9.121 9.032s4.092 9.032 9.121 9.032c1.936 0 3.73-.605 5.208-1.628l6.628 6.563 2.042-2.022zm-20.991-11.945c0-3.883 3.191-7.043 7.112-7.043s7.112 3.159 7.112 7.043-3.191 7.043-7.112 7.043-7.112-3.159-7.112-7.043z"></path>
+          </svg>
+      </button>
+    </form>
 
-    
-    <label class="searchBar__label formLabel screen-reader-only" id="actionable-search-bar-label" for="actionable-search-bar-input">
-        Search                </label>
+<section class="margin--top-2 recommendedSearchQueries" data-behavior="actionableSearchBar:recommendedSearchQueries" data-module-id="recommendedSearchQueries" data-entry-id="1j81jwtvBeiiESJ0PlaGH7" data-context-text="Try searching for" style="margin-top:3rem">
 
-    <input class="searchBar__textInput formInput av-search" type="search" name="q" id="actionable-search-bar-input" placeholder="Search Mailchimp" autocomplete="off" data-behavior="actionableSearchBar:searchInput" aria-labelledby="actionable-search-bar-label">
-
-    <button type="submit" class="searchBar__submit formSubmit" aria-label="Search Mailchimp" data-behavior="search-bar:submit">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon--search" aria-label="Search" width="23" height="23" viewBox="0 0 23 23">
-<path fill="#241C15" d="M23 20.978l-6.595-6.531c1.149-1.511 1.838-3.382 1.838-5.415 0-4.98-4.092-9.032-9.121-9.032-5.03 0-9.121 4.052-9.121 9.032s4.092 9.032 9.121 9.032c1.936 0 3.73-.605 5.208-1.628l6.628 6.563 2.042-2.022zm-20.991-11.945c0-3.883 3.191-7.043 7.112-7.043s7.112 3.159 7.112 7.043-3.191 7.043-7.112 7.043-7.112-3.159-7.112-7.043z"></path>
-</svg>
-    </button>
-</form>
-
-<section class="margin--top-2 recommendedSearchQueries" data-behavior="actionableSearchBar:recommendedSearchQueries" data-module-id="recommendedSearchQueries" data-entry-id="1j81jwtvBeiiESJ0PlaGH7" data-context-text="Try searching for">
-
-    <h3 class="microHeading margin--bottom-2" style="font-size: 1rem; font-weight: 500; text-transform: uppercase; margin-top: 3rem;margin-bottom: .625rem; position: sticky; left: 0; display: block;">Try searching for</h3>
+    <h3 class="microHeading margin--bottom-2" style="font-size: 1rem; font-weight: 500; text-transform: uppercase; margin-bottom: .625rem; position: sticky; left: 0; display: block;">Select or search intent</h3>
     <ul class="flex" style= "">
         <li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;">
-            <a href="#" data-behavior="actionableSearchBar:searchQuery" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
+            <a href="#" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
                  welcome automation
             </a>
         </li>
         <li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;">
-            <a href="#" data-behavior="actionableSearchBar:searchQuery" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
+            <a href="#" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
                  import contacts            
             </a>
         </li>
         <li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;">
-            <a href="#" data-behavior="actionableSearchBar:searchQuery" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
+            <a href="#" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
                  facebook            
             </a>
         </li>
         <li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;">
-            <a href="#" data-behavior="actionableSearchBar:searchQuery" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
+            <a href="#" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
                  email templates            
             </a>
         </li>
