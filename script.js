@@ -23,22 +23,19 @@ $(document).ready(function() {
           console.log(value)
         }
      }
-     print("hi")
     }
+    var arr = ["apple", "orange"]
+    $(".autocomplete-suggestions").css("width","");
 
-    var options = {
-      url: chrome.extension.getURL('resources/json/intents.json'),
+    $(".fill").autocomplete({
+      lookup: arr,
+      appendTo: $(".rec"),
+      formatResult: function (suggestion, currentValue) {
+        return '<li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;"><a style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">' + $.Autocomplete.defaults.formatResult(suggestion, currentValue) + '</a></li>'
+      },
+    });
 
-      getValue: "intent",
-
-      list: {
-        match: {
-          enabled: true
-        }
-      }
-    };
     
-    $(".fill").easyAutocomplete(options);
 
     const writeDate = (days) => {
       var date = new Date();
@@ -104,16 +101,6 @@ $(document).ready(function() {
     });
   });
 
-  $("#intent").submit(function(e) {
-    e.preventDefault();
-    console.log(35)
-    var val = $( "input[type='search']" ).val();
-    var cookievalue = val + ";";
-    document.cookie = "intent=" + cookievalue + ";expires=" + writeDate(730) + ";";
-    readCookie();
-
-  });
-
 
   const pencilImage = chrome.extension.getURL('resources/images/signup-pencil.png');
 
@@ -121,11 +108,11 @@ $(document).ready(function() {
 
   `
   <div class="layout--margin subscriptionCta backgroundJasmine">
-  <div class="mc_embed_signup layout content content--6of8-medium content--8of16-large">
+  <div class="mc_embed_signup layout content content--6of8-medium content--8of16-large" style="">
     <figure class="subscriptionCta__imageContainer image signing">
       <img src="${pencilImage}" alt="Signup Pencil">
     </figure>
-    <h2 class="h2 margin--top-6 margin--bottom-4 signing">
+    <h2 class="h2 margin--top-6 margin--bottom-4 signing" style="text-align: center">
       Want What's In Store in your inbox? Sign up below.
     </h2>
 
@@ -136,7 +123,7 @@ $(document).ready(function() {
         <div class="hf-warning formError" aria-live="polite">Please fill out this field.</div>
       </div>
       <div class="clear margin--top-2 subscriptionCta__submit">
-        <input type="submit" value="Submit" name="subscribe" id="mc-embedded-subscribe" class="ctaPrimary">
+        <input type="submit" value="Submit" name="subscribe" id="mc-embedded-subscribe" class="ctaPrimary" style="margin: 0 auto; display: block">
       </div>
       <div class="feedback feedback--success feedback--icon">
         <div class="feedback__content">
@@ -149,7 +136,7 @@ $(document).ready(function() {
       </div>
     </form >
 
-    <form target="_blank" class="form searchBar searchBar--inverted searchOn" id="intent">
+    <form id="intent" target="_blank" class="form searchBar searchBar--inverted searchOn">
       <input class="searchBar__textInput formInput av-search fill" type="search" name="q" placeholder="Search Mailchimp" autocomplete="off" aria-labelledby="actionable-search-bar-label" style="padding:1.25rem; border: none; box-shadow: none; padding-right: 3.9375reml; margin-bottom: 0px; padding-right:3.9375rem">
       <button type="submit" class="searchBar__submit formSubmit" aria-label="Search Mailchimp">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon--search" aria-label="Search" width="23" height="23" viewBox="0 0 23 23">
@@ -158,36 +145,16 @@ $(document).ready(function() {
       </button>
     </form>
 
-    <section class="margin--top-2 recommendedSearchQueries searchOn" data-behavior="actionableSearchBar:recommendedSearchQueries" data-module-id="recommendedSearchQueries" data-entry-id="1j81jwtvBeiiESJ0PlaGH7" data-context-text="Try searching for" style="margin-top:3rem">
+    <section class="margin--top-2 recommendedSearchQueries searchOn" data-context-text="Try searching for" style="margin-top:3rem">
 
-    <h3 class="microHeading margin--bottom-2" style="font-size: 1rem; font-weight: 500; text-transform: uppercase; margin-bottom: .625rem; position: sticky; left: 0; display: block;">Select or search intent</h3>
-    <ul class="flex" style= "">
+    <h3 class="microHeading margin--bottom-2" style="font-size: 1rem; font-weight: 500; text-transform: uppercase; margin-bottom: .625rem; position: sticky; left: 0; display: block;">Suggestions</h3>
+    <ul class="flex rec" style= "">
         <li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;">
             <a href="#" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
                  welcome automation
             </a>
-        </li>
-        <li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;">
-            <a href="#" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
-                 import contacts            
-            </a>
-        </li>
-        <li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;">
-            <a href="#" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
-                 facebook            
-            </a>
-        </li>
-        <li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;">
-            <a href="#" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
-                 email templates            
-            </a>
-        </li>
-        <li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;">
-            <a href="#" data-behavior="actionableSearchBar:searchQuery" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
-                 contact support            
-            </a>
-        </li>    
-        </ul>
+        </li>  
+    </ul>
 
 </section>
 
@@ -196,8 +163,8 @@ $(document).ready(function() {
           Your information will be used to send you Mailchimp updates. 
           You can change your mind at any time by clicking the unsubscribe 
           link at the bottom of emails you receive from us. For more details, 
-          review our privacy policy.
-          <a href="/legal/privacy"> privacy policy</a>
+          review our 
+          <a href="/legal/privacy"> privacy policy</a>.
       </p>    
     </div>
   </div>
