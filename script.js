@@ -24,18 +24,77 @@ $(document).ready(function() {
         }
      }
     }
-    var arr = ["apple", "orange"]
-    $(".autocomplete-suggestions").css("width","");
+
+    var arr = ["Ideation" ,
+    "Product creation" ,
+    "Product market fit" ,
+    "Pricing model" ,
+    "Merchandising" ,
+    "Build concept & optimize" ,
+    "Formalize business" ,
+    "Create legal and financials" ,
+    "Business process tools" ,
+    "Go to market/launch" ,
+    "DIY Brand" ,
+    "Create logo" ,
+    "Get a domain" ,
+    "Build a site" ,
+    "Create an email" ,
+    "Create social content" ,
+    "External help" ,
+    "Create a look & feel" ,
+    "Pick brand palette" ,
+    "Create logo" ,
+    "Create design system" ,
+    "Brand as business priority" ,
+    "Refine look and feel" ,
+    "Create competitive brand" ,
+    "Create online/offline assets" ,
+    "In-house brand efforts" ,
+    "Build website/page" ,
+    "Find customers" ,
+    "Understand customers" ,
+    "Tag contacts" ,
+    "Segment audience" ,
+    "Create targeted messaging" ,
+    "Tailor channel messaging" ,
+    "Create campaign strategy" ,
+    "Choose channels and cadence" ,
+    "Tailor campaign to the context" ,
+    "Make your campaign ownable" ,
+    "Create lead gen campaign" ,
+    "Create a sales team nurture" ,
+    "Observe performance" ,
+    "Learn insights" ,
+    "Conduct A/B test" ,
+    "Analyze results" ,
+    "Iterate strategy" ,
+    "Re-test" ,
+    "Funding options" ,
+    "Venture capital" ,
+    "Angel investors" ,
+    "Bootstrapped (Personal cash/savings)" ,
+    "Friends and family (loans, gifts, investors)" ,
+    "Traditional bank loan" ,
+    "Microloans" ,
+    "Welcome automation" ,
+    "Import contacts" ,
+    "Facebook" ,
+    "Email templates" ,
+    "Contact support"]
+
+    var intent = arr.map(v => v.toLowerCase());
 
     $(".fill").autocomplete({
-      lookup: arr,
+      lookup: intent,
       appendTo: $(".rec"),
+      lookupLimit: 5,
       formatResult: function (suggestion, currentValue) {
         return '<li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;"><a style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">' + $.Autocomplete.defaults.formatResult(suggestion, currentValue) + '</a></li>'
-      },
+      }
     });
 
-    
+    // $(".autocomplete-suggestions").removeAttr("style");
 
     const writeDate = (days) => {
       var date = new Date();
@@ -149,11 +208,7 @@ $(document).ready(function() {
 
     <h3 class="microHeading margin--bottom-2" style="font-size: 1rem; font-weight: 500; text-transform: uppercase; margin-bottom: .625rem; position: sticky; left: 0; display: block;">Suggestions</h3>
     <ul class="flex rec" style= "">
-        <li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;">
-            <a href="#" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
-                 welcome automation
-            </a>
-        </li>  
+
     </ul>
 
 </section>

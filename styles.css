@@ -1,3 +1,5 @@
-﻿.autocomplete-suggestions {
-    width: 10% !important;
+﻿.autocomplete-suggestions { 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
