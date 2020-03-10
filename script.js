@@ -5,6 +5,7 @@ $(document).ready(function() {
     document.body.appendChild(div); 
 
     var allCookies = document.cookie;
+    
     cookiearray = allCookies.split(';');
     for(var i=0; i<cookiearray.length; i++) {
       name = cookiearray[i].split('=')[0].toString();
@@ -20,71 +21,28 @@ $(document).ready(function() {
         name = cookiearray[i].split('=')[0].toString();
         value = cookiearray[i].split('=')[1];
         if (name == " emailadd" || name== " intent") {
-          console.log(value)
+          // console.log(value)
         }
      }
     }
+    var intent = getSomething()['suggestions'];
 
-    var arr = ["Ideation" ,
-    "Product creation" ,
-    "Product market fit" ,
-    "Pricing model" ,
-    "Merchandising" ,
-    "Build concept & optimize" ,
-    "Formalize business" ,
-    "Create legal and financials" ,
-    "Business process tools" ,
-    "Go to market/launch" ,
-    "DIY Brand" ,
-    "Create logo" ,
-    "Get a domain" ,
-    "Build a site" ,
-    "Create an email" ,
-    "Create social content" ,
-    "External help" ,
-    "Create a look & feel" ,
-    "Pick brand palette" ,
-    "Create logo" ,
-    "Create design system" ,
-    "Brand as business priority" ,
-    "Refine look and feel" ,
-    "Create competitive brand" ,
-    "Create online/offline assets" ,
-    "In-house brand efforts" ,
-    "Build website/page" ,
-    "Find customers" ,
-    "Understand customers" ,
-    "Tag contacts" ,
-    "Segment audience" ,
-    "Create targeted messaging" ,
-    "Tailor channel messaging" ,
-    "Create campaign strategy" ,
-    "Choose channels and cadence" ,
-    "Tailor campaign to the context" ,
-    "Make your campaign ownable" ,
-    "Create lead gen campaign" ,
-    "Create a sales team nurture" ,
-    "Observe performance" ,
-    "Learn insights" ,
-    "Conduct A/B test" ,
-    "Analyze results" ,
-    "Iterate strategy" ,
-    "Re-test" ,
-    "Funding options" ,
-    "Venture capital" ,
-    "Angel investors" ,
-    "Bootstrapped (Personal cash/savings)" ,
-    "Friends and family (loans, gifts, investors)" ,
-    "Traditional bank loan" ,
-    "Microloans" ,
-    "Welcome automation" ,
-    "Import contacts" ,
-    "Facebook" ,
-    "Email templates" ,
-    "Contact support"]
+    function getSomething() {
+      var result = null;
+      $.ajax({
+        async: false,
+        url: chrome.extension.getURL('resources/json/intents.json'),
+        dataType: "json",
+        success: function(data) {
+          result = data;
+        }
+      }
+      )
+      return result;
+    }
 
-    var intent = arr.map(v => v.toLowerCase());
-
+    console.log(intent)
+  
     $(".fill").autocomplete({
       lookup: intent,
       appendTo: $(".rec"),
@@ -93,8 +51,6 @@ $(document).ready(function() {
         return '<li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;"><a style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">' + $.Autocomplete.defaults.formatResult(suggestion, currentValue) + '</a></li>'
       }
     });
-
-    // $(".autocomplete-suggestions").removeAttr("style");
 
     const writeDate = (days) => {
       var date = new Date();
@@ -113,11 +69,10 @@ $(document).ready(function() {
 
       var val = $( "input[type='email']" ).val();
       var cookievalue = val + ";";
-      document.cookie = "emailadd=" + cookievalue + ";expires=" + writeDate(730) + ";";
+      document.cookie = "email" + cookievalue + ";expires=" + writeDate(730) + ";";
       readCookie();
       
       var validForm = true;
-
       if (validForm == true) {
 
         var formData = $(this).serialize();
@@ -153,11 +108,29 @@ $(document).ready(function() {
         })
 
       }
-
-
   
       return;
     });
+
+    $( "input[name='intent']" ).keypress(()=>{
+      $( ".initial" ).hide()
+    })
+
+
+    $('.initial').click(function() {
+      name = $(this).attr("name");
+      $( "input[name='intent']" ).val('');
+      $( "input[name='intent']" ).val(name);
+      $( ".initial" ).hide()
+    });
+
+    $('#target').click(() =>{
+      var val = $( "input[name='intent']" ).val();
+      var cookievalue = val + ";";
+      document.cookie = "intent=" + cookievalue + ";expires=" + writeDate(730) + ";";
+      $( ".searchBar--inverted" ).trigger("reset");
+
+    })
   });
 
 
@@ -167,7 +140,7 @@ $(document).ready(function() {
 
   `
   <div class="layout--margin subscriptionCta backgroundJasmine">
-  <div class="mc_embed_signup layout content content--6of8-medium content--8of16-large" style="">
+  <div class="mc_embed_signup layout content content--6of8-medium content--8of16-large" style="min-height: 20rem">
     <figure class="subscriptionCta__imageContainer image signing">
       <img src="${pencilImage}" alt="Signup Pencil">
     </figure>
@@ -179,7 +152,7 @@ $(document).ready(function() {
       <div id="mc_embed_signup_scroll subscriptionCta__fieldset">
         <label class="formLabel subscriptionCta__label" for="subscription-email">Email</label>
         <input type="email" value="" placeholder="freddie@example.com" name="EMAIL" class="required email formInput subscriptionCta__input av-email" id="mce-EMAIL" aria-invalid="true">
-        <div class="hf-warning formError" aria-live="polite">Please fill out this field.</div>
+        <div class="hf-warning formError" aria-live="polite">Please enter a valid input.</div>
       </div>
       <div class="clear margin--top-2 subscriptionCta__submit">
         <input type="submit" value="Submit" name="subscribe" id="mc-embedded-subscribe" class="ctaPrimary" style="margin: 0 auto; display: block">
@@ -195,9 +168,9 @@ $(document).ready(function() {
       </div>
     </form >
 
-    <form id="intent" target="_blank" class="form searchBar searchBar--inverted searchOn">
-      <input class="searchBar__textInput formInput av-search fill" type="search" name="q" placeholder="Search Mailchimp" autocomplete="off" aria-labelledby="actionable-search-bar-label" style="padding:1.25rem; border: none; box-shadow: none; padding-right: 3.9375reml; margin-bottom: 0px; padding-right:3.9375rem">
-      <button type="submit" class="searchBar__submit formSubmit" aria-label="Search Mailchimp">
+    <form class="form searchBar searchBar--inverted searchOn">
+      <input name="intent" class="searchBar__textInput formInput av-search fill" placeholder="Search Mailchimp" style="padding:1.25rem; border: none; box-shadow: none; padding-right: 3.9375reml; margin-bottom: 0px; padding-right:3.9375rem">
+      <button id="target" type="button" class="searchBar__submit formSubmit" aria-label="Search Mailchimp">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon--search" aria-label="Search" width="23" height="23" viewBox="0 0 23 23">
           <path fill="#241C15" d="M23 20.978l-6.595-6.531c1.149-1.511 1.838-3.382 1.838-5.415 0-4.98-4.092-9.032-9.121-9.032-5.03 0-9.121 4.052-9.121 9.032s4.092 9.032 9.121 9.032c1.936 0 3.73-.605 5.208-1.628l6.628 6.563 2.042-2.022zm-20.991-11.945c0-3.883 3.191-7.043 7.112-7.043s7.112 3.159 7.112 7.043-3.191 7.043-7.112 7.043-7.112-3.159-7.112-7.043z"></path>
         </svg>
@@ -206,9 +179,33 @@ $(document).ready(function() {
 
     <section class="margin--top-2 recommendedSearchQueries searchOn" data-context-text="Try searching for" style="margin-top:3rem">
 
-    <h3 class="microHeading margin--bottom-2" style="font-size: 1rem; font-weight: 500; text-transform: uppercase; margin-bottom: .625rem; position: sticky; left: 0; display: block;">Suggestions</h3>
+    <h3 class="microHeading margin--bottom-2" style="font-size: 1rem; font-weight: 500; text-transform: uppercase; margin-bottom: .625rem; position: sticky; left: 0; display: block;">Try searching...</h3>
     <ul class="flex rec" style= "">
-
+      <li name="welcome automation" class="h5 margin--right-1 margin--bottom-1 initial" style="border:.0625rem solid #403b3b;">
+        <a style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
+            welcome automation
+        </a>
+      </li>
+      <li name="import contacts" class="h5 margin--right-1 margin--bottom-1 initial" style="border:.0625rem solid #403b3b;">
+          <a style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
+              import contacts            
+          </a>
+      </li>
+      <li name="facebook" class="h5 margin--right-1 margin--bottom-1 initial" style="border:.0625rem solid #403b3b;">
+          <a style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
+              facebook            
+          </a>
+      </li>
+      <li name="email templates" class="h5 margin--right-1 margin--bottom-1 initial" style="border:.0625rem solid #403b3b;">
+          <a style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
+              email templates            
+          </a>
+      </li>
+      <li name="contact support" class="h5 margin--right-1 margin--bottom-1 initial" style="border:.0625rem solid #403b3b;">
+          <a data-behavior="actionableSearchBar:searchQuery" style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">
+              contact support            
+          </a>
+      </li>
     </ul>
 
 </section>
@@ -225,6 +222,3 @@ $(document).ready(function() {
   </div>
   </div>
   `;
-
-
-

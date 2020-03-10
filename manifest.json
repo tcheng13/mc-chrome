@@ -25,7 +25,8 @@
     "manifest_version": 2,
     "web_accessible_resources": [
       "resources/images/*.png",
-      "resources/json/intents.json"
+      "resources/json/intents.json",
+      "styles.css"
     ]
   }
   
