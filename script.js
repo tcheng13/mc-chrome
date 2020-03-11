@@ -1,5 +1,4 @@
 $(document).ready(function() {
-  
     var div=document.createElement("div"); 
     div.innerHTML = htmlToRender;
     document.body.appendChild(div); 
@@ -25,32 +24,21 @@ $(document).ready(function() {
         }
      }
     }
-    var intent = getSomething()['suggestions'];
+    // var intent = getSomething()['suggestions'];
 
-    function getSomething() {
-      var result = null;
-      $.ajax({
-        async: false,
-        url: chrome.extension.getURL('resources/json/intents.json'),
-        dataType: "json",
-        success: function(data) {
-          result = data;
-        }
-      }
-      )
-      return result;
-    }
-
-    console.log(intent)
-  
-    $(".fill").autocomplete({
-      lookup: intent,
-      appendTo: $(".rec"),
-      lookupLimit: 5,
-      formatResult: function (suggestion, currentValue) {
-        return '<li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;"><a style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">' + $.Autocomplete.defaults.formatResult(suggestion, currentValue) + '</a></li>'
-      }
-    });
+    // function getSomething() {
+    //   var result = null;
+    //   $.ajax({
+    //     async: false,
+    //     url: chrome.extension.getURL('resources/json/intents.json'),
+    //     dataType: "json",
+    //     success: function(data) {
+    //       result = data;
+    //     }
+    //   }
+    //   )
+    //   return result;
+    // }
 
     const writeDate = (days) => {
       var date = new Date();
@@ -111,6 +99,28 @@ $(document).ready(function() {
   
       return;
     });
+
+    fetch('https://us-central1-mc-intent.cloudfunctions.net/getIntents')
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      a = data[1]['item']
+    })
+    .then(() => {
+      suge = $.map(a, function(value, key) { return value });
+      $(".fill").autocomplete({
+        lookup: suge,
+        appendTo: $(".rec"),
+        lookupLimit: 5,
+        formatResult: function (suggestion, currentValue) {
+          return '<li class="h5 margin--right-1 margin--bottom-1" style="border:.0625rem solid #403b3b;"><a style="color: #403b3b; padding: .8375rem 2rem; display: block; font-size: 85%">' + $.Autocomplete.defaults.formatResult(suggestion, currentValue) + '</a></li>'
+        }
+      });
+    })
+    .catch( err => {
+      return err
+    })
 
     $( "input[name='intent']" ).keypress(()=>{
       $( ".initial" ).hide()
