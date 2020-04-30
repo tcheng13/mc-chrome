@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/tcheng13/mc-chrome#readme",
   "dependencies": {
-    "jquery": "^3.4.1"
+    "jquery": "^3.5.0"
   }
 }
