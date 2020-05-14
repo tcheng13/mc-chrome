@@ -3,3 +3,28 @@
     flex-direction: row;
     flex-wrap: wrap;
 }
+
+#whole {
+    height: 100%;
+    min-height: 34rem;
+}
+
+.searchRes__content {
+    display: inline-block;
+    margin: 3rem 3% 5% 3%;
+    max-height: 11rem;
+    vertical-align: text-top;
+    width: 27%;
+}
+
+button {
+    display: block;
+    margin-left: 3% !important;
+    border: none;
+    background-color: #f6f6f4;
+    font-family: Cooper,Georgia,Times,Times New Roman,serif !important;
+    color: #241c15;
+    font-weight: 200;
+    font-size: 1.1rem !important;
+    padding: 0;
+}

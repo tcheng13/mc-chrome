@@ -4,7 +4,8 @@
     "description": "A chrome extension that display an email subscription form.",
     "permissions": [
       "activeTab",
-      "https://mailchimp.us4.list-manage.com/*"
+      "https://mailchimp.us4.list-manage.com/*",
+      "https://us-central1-mc-intent.cloudfunctions.net/addEmail"
     ],
     "content_scripts": [
       {

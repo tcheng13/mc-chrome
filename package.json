@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/tcheng13/mc-chrome#readme",
   "dependencies": {
+    "@elastic/site-search-node": "^1.0.1",
     "axios": "^0.19.2",
     "easy-autocomplete": "^1.3.5",
     "firebase": "^7.10.0",
